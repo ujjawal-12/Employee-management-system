@@ -1,23 +1,18 @@
 import javax.swing.*;
-import javax.swing.JTextField;
+
 import java.awt.event.*;
 import java.awt.*;
 import java.sql.*;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 public class Update  extends JPanel{
   ImageIcon img1,img2,img3,img4;
   Image img,imga;
   JLabel jlb,jlb1,jlb3,jlb4,jlb5,jlb6,jlb7,jlb8,jlb9,jlb10,jlb11,jlb13;
-  JTextField jtf,jtf1,jtf2,jtf3,jtf4,jtf6,jtf7;
+  JTextField jtf,jtf1,jtf2,jtf3,jtf4,jtf6;
   JPanel jpl;
   JButton jbtnn,btn;
   JTextArea jtarea;
   JSpinner spinner;
-  JComboBox<String> jcmb;
+  JComboBox<String> jcmb,Date,Month,Year;
   public Update(){
     setLayout(null);
     setBackground(Color.darkGray);
@@ -132,12 +127,36 @@ jlb9.setBounds(270,80,100,20);
 jlb9.setFont(f2);
 jlb9.setForeground(Color.white);
 jlb.add(jlb9);
-jtf7=new JTextField();
-jtf7.setBounds(400,80,130,30);
-jtf7.setBackground(Color.DARK_GRAY);
-jtf7.setForeground(Color.white);
-jtf7.setBorder(BorderFactory.createLineBorder(Color.white));
-jlb.add(jtf7);
+
+String date[]={"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"};
+  String month[]={"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Oct","Nov","Dec"};
+  String year[]={"2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"};
+  Date=new JComboBox<String>(date);
+  Month=new JComboBox<String>(month);
+  Year=new JComboBox<String>(year);
+  Date.setBounds(395,80,50,25);
+  Date.setSelectedIndex(1);
+  Date.setBorder(BorderFactory.createLineBorder(Color.white));
+  Date.setFont(new Font("Arial", Font.PLAIN, 15));
+  jlb.add(Date);
+
+  Month.setBounds(440,80,60,25);
+  Month.setSelectedIndex(1);
+  Month.setBorder(BorderFactory.createLineBorder(Color.white));
+  Month.setFont(new Font("Arial", Font.PLAIN, 15));
+  jlb.add(Month);
+  
+  Year.setBounds(495,80,60,25);
+  Year.setSelectedIndex(1);
+  Year.setBorder(BorderFactory.createLineBorder(Color.white));
+  Year.setFont(new Font("Arial", Font.PLAIN, 15));
+  jlb.add(Year);
+
+// jtf7.setBounds(400,80,130,30);
+// jtf7.setBackground(Color.DARK_GRAY);
+// jtf7.setForeground(Color.white);
+// jtf7.setBorder(BorderFactory.createLineBorder(Color.white));
+// jlb.add(jtf7);
 //phone
 jlb10=new JLabel("Phone");
 jlb10.setBounds(270,135,100,20);
@@ -174,7 +193,7 @@ add(jpl);
 jpl.revalidate();
   }
   public void setempty(){
-    this.jtf1.setText(""); this.jtf2.setText(""); this.jtf3.setText(""); this.jtf4.setText("");  this.jtf6.setText("");  this.jtf7.setText(""); this.jtarea.setText("");}
+    this.jtf1.setText(""); this.jtf2.setText(""); this.jtf3.setText(""); this.jtf4.setText("");  this.jtf6.setText(""); this.jtarea.setText("");}
   }
 
 class arrowbtn implements ActionListener{
@@ -200,7 +219,6 @@ class arrowbtn implements ActionListener{
            l2.jcmb.setSelectedItem(rslt.getString("post"));
            l2.jtarea.setText(rslt.getString("address"));
            l2.jtf3.setText(rslt.getString("fathername"));
-           l2.jtf7.setText(rslt.getString("dateofbirth"));
            l2.jtf4.setText(rslt.getString("phone"));
            l2.jtf6.setText(rslt.getString("education"));
          }
@@ -218,7 +236,7 @@ class action implements ActionListener{
   obj=l1;
   }
   public void actionPerformed(ActionEvent e){
-    if(obj.jtf1.getText().isEmpty() || obj.jtf2.getText().isEmpty() || obj.jtf3.getText().isEmpty() || obj.jtf4.getText().isEmpty() ||  obj.jtf6.getText().isEmpty() || obj.jtarea.getText().isEmpty() || obj.jtf7.getText().isEmpty()){
+    if(obj.jtf1.getText().isEmpty() || obj.jtf2.getText().isEmpty() || obj.jtf3.getText().isEmpty() || obj.jtf4.getText().isEmpty() ||  obj.jtf6.getText().isEmpty() || obj.jtarea.getText().isEmpty() ){
       JOptionPane.showMessageDialog(obj, "make sure to fill all the fields..!!!", "information", JOptionPane.INFORMATION_MESSAGE);
     }
     else{
@@ -226,7 +244,7 @@ class action implements ActionListener{
         Class.forName("com.mysql.jdbc.Driver");
         Connection con =DriverManager.getConnection("jdbc:mysql://localhost:3306/stu", "root", "");
         Statement s1=con.createStatement();
-        String query="update studetail set name="+"'"+obj.jtf1.getText()+"'"+","+ "age="+obj.spinner.getValue()+","+"email="+"'"+obj.jtf2.getText()+"'"+","+"post="+"'"+obj.jcmb.getSelectedItem().toString()+"'" +","+"address="+"'"+obj.jtarea.getText()+"'"+","+"fathername="+"'"+obj.jtf3.getText()+"'"+","+   "dateofbirth="+"'"+obj.jtf7.getText()+"'"+"," +"phone="+Integer.parseInt(obj.jtf4.getText())+","+"education="+"'"+obj.jtf6.getText()+"'" +"where id="+Integer.parseInt(obj.jtf.getText());
+        String query="update studetail set name="+"'"+obj.jtf1.getText()+"'"+","+ "age="+obj.spinner.getValue()+","+"email="+"'"+obj.jtf2.getText()+"'"+","+"post="+"'"+obj.jcmb.getSelectedItem().toString()+"'" +","+"address="+"'"+obj.jtarea.getText()+"'"+","+"fathername="+"'"+obj.jtf3.getText()+"'"+","+   "dateofbirth="+"'"+obj.Date.getSelectedItem().toString()+obj.Month.getSelectedItem().toString()+obj.Year.getSelectedItem().toString()+"'"+"," +"phone="+"'"+obj.jtf4.getText()+"'"+","+"education="+"'"+obj.jtf6.getText()+"'" +"where id="+Integer.parseInt(obj.jtf.getText());
         int val=s1.executeUpdate(query);
         if(val>0){
           JOptionPane.showMessageDialog(obj, "Record update successfully", "Message", JOptionPane.PLAIN_MESSAGE);

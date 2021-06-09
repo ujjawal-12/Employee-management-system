@@ -11,7 +11,7 @@ public class Addemployee extends JPanel{
   JTextField jtf1,jtf2,jtf3,jtf4,jtf5,jtf6,jtf7,jtf8;
   JTextArea jtarea;
   JSpinner spinner,spinner1;
-  JComboBox<String> jcmb;
+  JComboBox<String> jcmb,Date,Month,Year;
   ImageIcon img1,img2;
   Image img;
   JButton jbtnn;
@@ -131,12 +131,37 @@ public class Addemployee extends JPanel{
   jlb9.setFont(f2);
   jlb9.setForeground(Color.white);
   jlb.add(jlb9);
-  jtf7=new JTextField();
-  jtf7.setBounds(400,130,130,30);
-  jtf7.setBackground(Color.DARK_GRAY);
-  jtf7.setForeground(Color.white);
-  jtf7.setBorder(BorderFactory.createLineBorder(Color.white));
-  jlb.add(jtf7);
+  String date[]={"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"};
+  String month[]={"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Oct","Nov","Dec"};
+  String year[]={"2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021"};
+  Date=new JComboBox<String>(date);
+  Month=new JComboBox<String>(month);
+  Year=new JComboBox<String>(year);
+  Date.setBounds(395,130,50,25);
+  Date.setSelectedIndex(1);
+  Date.setBorder(BorderFactory.createLineBorder(Color.white));
+  Date.setFont(new Font("Arial", Font.PLAIN, 15));
+  jlb.add(Date);
+
+  Month.setBounds(440,130,60,25);
+  Month.setSelectedIndex(1);
+  Month.setBorder(BorderFactory.createLineBorder(Color.white));
+  Month.setFont(new Font("Arial", Font.PLAIN, 15));
+  jlb.add(Month);
+  
+  Year.setBounds(495,130,60,25);
+  Year.setSelectedIndex(1);
+  Year.setBorder(BorderFactory.createLineBorder(Color.white));
+  Year.setFont(new Font("Arial", Font.PLAIN, 15));
+  jlb.add(Year);
+
+ 
+  // jtf7=new JTextField();
+  // jtf7.setBounds(400,130,130,30);
+  // jtf7.setBackground(Color.DARK_GRAY);
+  // jtf7.setForeground(Color.white);
+  // jtf7.setBorder(BorderFactory.createLineBorder(Color.white));
+  // jlb.add(jtf7);
   //phone
   jlb10=new JLabel("Phone");
   jlb10.setBounds(270,180,100,20);
@@ -196,28 +221,32 @@ class Savestu implements ActionListener{
       addobj=obj;
   }
   public void actionPerformed(ActionEvent e){
-    if(addobj.jtf1.getText().isEmpty() || addobj.jtf2.getText().isEmpty() || addobj.jtf3.getText().isEmpty() || addobj.jtf4.getText().isEmpty() || addobj.jtf5.getText().isEmpty() || addobj.jtf6.getText().isEmpty() || addobj.jtarea.getText().isEmpty() || addobj.jtf7.getText().isEmpty() || addobj.jtf8.getText().isEmpty()){
+    if(addobj.jtf1.getText().isEmpty() || addobj.jtf2.getText().isEmpty() || addobj.jtf3.getText().isEmpty() || addobj.jtf4.getText().isEmpty() || addobj.jtf5.getText().isEmpty() || addobj.jtf6.getText().isEmpty() || addobj.jtarea.getText().isEmpty() ||  addobj.jtf8.getText().isEmpty()){
       JOptionPane.showMessageDialog(addobj, "make sure to fill all the fields..!!!", "information", JOptionPane.INFORMATION_MESSAGE);
     }
   else{
-    try{
-    Class.forName("com.mysql.jdbc.Driver");
-    Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/stu", "root", "");
-    String st="insert into studetail values("+addobj.spinner1.getValue()+","+"'"+addobj.jtf8.getText()+"'"+","+ "'"+addobj.jtf1.getText()+"'"+","+addobj.spinner.getValue()+","+"'"+addobj.jtf2.getText()+"'"+","+"'"+addobj.jcmb.getSelectedItem().toString()+"'"+","+"'"+addobj.jtarea.getText()+"'"+","+"'"+addobj.jtf3.getText()+"'"+","+"'"+addobj.jtf7.getText()+"'"+","+"'"+addobj.jtf4.getText()+"'"+","+"'"+addobj.jtf6.getText()+"'"+","+"'"+addobj.jtf5.getText()+"'"+")";
-    Statement stmt=con.createStatement();
-    int val=stmt.executeUpdate(st);
-    if(val>0){
-      JOptionPane.showMessageDialog(addobj, "Record inserted successfully", "Message", JOptionPane.PLAIN_MESSAGE);
-      addobj.setempty();
+    if(addobj.jtf4.getText().length()==10 && addobj.jtf5.getText().length()==12){
+      try{
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/stu", "root", "");
+        String st="insert into studetail values("+addobj.spinner1.getValue()+","+"'"+addobj.jtf8.getText()+"'"+","+ "'"+addobj.jtf1.getText()+"'"+","+addobj.spinner.getValue()+","+"'"+addobj.jtf2.getText()+"'"+","+"'"+addobj.jcmb.getSelectedItem().toString()+"'"+","+"'"+addobj.jtarea.getText()+"'"+","+"'"+addobj.jtf3.getText()+"'"+","+"'"+addobj.Date.getSelectedItem().toString()+addobj.Month.getSelectedItem().toString()+addobj.Year.getSelectedItem().toString()+"'"+","+"'"+addobj.jtf4.getText()+"'"+","+"'"+addobj.jtf6.getText()+"'"+","+"'"+addobj.jtf5.getText()+"'"+")";
+        Statement stmt=con.createStatement();
+        int val=stmt.executeUpdate(st);
+        if(val>0){
+          JOptionPane.showMessageDialog(addobj, "Record inserted successfully", "Message", JOptionPane.PLAIN_MESSAGE);
+          addobj.setempty();
+        }
+    
+        con.close();
+        }
+        catch(ClassNotFoundException err){
+          System.out.println(err.getMessage());
+        }
+        catch(SQLException err){ JOptionPane.showMessageDialog(addobj, err.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);}
     }
-
-    con.close();
+    else{
+          JOptionPane.showMessageDialog(addobj,"invalid datafield"," Error", JOptionPane.ERROR_MESSAGE);
     }
-    catch(ClassNotFoundException err){
-      System.out.println(err.getMessage());
-    }
-    catch(SQLException err){ JOptionPane.showMessageDialog(addobj, err.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);}
-
   }
 }
 }

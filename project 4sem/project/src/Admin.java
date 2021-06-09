@@ -3,11 +3,7 @@ import java.awt.event.*;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-
 import javax.swing.JPanel;
-
-//mport jdk.jfr.internal.jfc.JFC;
-
 public class Admin implements ActionListener{
   JFrame jf;
   JPanel jp1,jp2,jp3,jp4,jp5,jp6,jp7;
@@ -35,50 +31,50 @@ public class Admin implements ActionListener{
   jb2=new JButton("Remove");
   jb3=new JButton("Update");
   jb4=new JButton("View");
-  jb5=new JButton("others");
+  // jb5=new JButton("others");
   jb6=new JButton("LOGOUT");
   jb1.setBorder(BorderFactory.createLineBorder(Color.green));
   jb2.setBorder(BorderFactory.createLineBorder(Color.red));
   jb3.setBorder(BorderFactory.createLineBorder(Color.blue));
   jb4.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
-  jb5.setBorder(BorderFactory.createLineBorder(Color.gray));
+  // jb5.setBorder(BorderFactory.createLineBorder(Color.gray));
   jb6.setBorder(BorderFactory.createLineBorder(Color.red));
   jb1.setBackground(Color.black);
   jb2.setBackground(Color.black);
   jb3.setBackground(Color.black);
   jb4.setBackground(Color.black);
-  jb5.setBackground(Color.black);
+  // jb5.setBackground(Color.black);
   jb6.setBackground(Color.red);
   jb1.setForeground(Color.green);
   jb2.setForeground(Color.red);
   jb3.setForeground(Color.blue);
   jb4.setForeground(Color.darkGray);
-  jb5.setForeground(Color.gray);
+  // jb5.setForeground(Color.gray);
   jb6.setForeground(Color.white);
   Font font=new Font("Arial",Font.BOLD,14);
   jb1.setFont(font);
   jb2.setFont(font);
   jb3.setFont(font);
   jb4.setFont(font);
-  jb5.setFont(font);
+  // jb5.setFont(font);
   jb6.setFont(font);
   jb1.setBounds(0,120,130,30);
   jb2.setBounds(0,155,130,30);
   jb3.setBounds(0,190,130,30);
   jb4.setBounds(0,225,130,30);
-  jb5.setBounds(0,260,130,30);
+  // jb5.setBounds(0,260,130,30);
   jb6.setBounds(0,0,150,30);
   jb1.addActionListener(this);
   jb2.addActionListener(this);
   jb3.addActionListener(this);
   jb4.addActionListener(this);
-  jb5.addActionListener(this);
+  // jb5.addActionListener(this);
   jb6.addActionListener(this);
   jp1.add(jb1);
   jp1.add(jb2);
   jp1.add(jb3);
   jp1.add(jb4);
-  jp1.add(jb5);
+  // jp1.add(jb5);
  jp1.add(jb6);
   // panel-2
   jp2=new JPanel();
@@ -106,7 +102,6 @@ public class Admin implements ActionListener{
     else if(e.getSource()==jb2) card.show(jp2, "two"); 
     else if(e.getSource()==jb3) card.show(jp2, "three"); 
     else if(e.getSource()==jb4) { card.show(jp2, "four");   } 
-    else if(e.getSource()==jb5) card.show(jp2, "five");
     else{
       //System.out.println("logout");
       jf.dispose();
